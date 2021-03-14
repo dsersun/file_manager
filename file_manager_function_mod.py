@@ -1,54 +1,44 @@
 """
 Модуль с функциями для файлового менеджера
 """
-import datetime, os
+import datetime, os, colorama
+from colorama import Fore, Back, Style
+colorama.init()
 
+# Вывод текущей даты
 def curent_date():
 	x = datetime.datetime.now()
 	global today
 	today = (x.strftime("%d"),x.strftime("%b"),x.strftime("%Y"))
 
+# Вывод интервейса программы (подсказки номеров функций)
 def print_description():
 	curent_date()
-	print(" Curent date: " + today[0] + " " + today[1] + " " + today[2])
-	print("|__________________________ *** TEST FILE MANAGER in Python *** ________________________|")
-	print("|_______________________________________________________________________________________|")
-	print("|                                    MAIN FUNCTION                                      |")
+	print(Fore.RED + Back.WHITE +" Curent date: " + today[0] + " " + today[1] + " " + today[2] + "  " + Style.RESET_ALL + "   CWD:" + Fore.RED + Back.YELLOW +"  " + os.getcwd() + "  " + Style.RESET_ALL)
+	print(Fore.BLUE+ "|__________________________ *** TEST FILE MANAGER in Python *** ________________________|")
+	print("|_______________________________________________________________________________________|"+ Style.RESET_ALL)
+	print("|                                    " + Fore.RED +"MAIN FUNCTION" + Style.RESET_ALL + "                                      |")
 	print("|                                                                                       |")
 	print("|   1. New Folder                                  C. Change directory                  |")
 	print("|   2. Delete Folder                                                                    |")
 	print("|   3. Rename Folder                               7. Copy Folder                       |")
 	print("|                                                  8. Copy File                         |")
-	print("|   4. New File                                    9.                                   |")
+	print("|   4. New File  " + Fore.MAGENTA + "(inactiv)" + Style.RESET_ALL + "                         9. "+ Fore.BLUE +"List of files in directory"+ Style.RESET_ALL +"        |")
 	print("|   5. Delete File                                                                      |")
-	print("|   6. Rename File                                 H. Help                              |")
+	print("|   6. Rename File                                 H. Help   / "+ Fore.RED+"E: Exit"+ Style.RESET_ALL+"                  |")
 	print("|_______________________________________________________________________________________|\n")
-
-
-def get_command(): # функция запрашивает у пользователя код желаемой операции
-	global Command
-	Command = input("Command: ")
 
 # main function for file manager
 
 def list_file_and_dir(): # print list of file and folder in Curent Work Dir
-	print(os.getcwd(),"\\") # => Curent Dir
+	#print(Fore.RED + os.getcwd(),"\\" + Style.RESET_ALL) # => Curent Dir
 	x = os.listdir()
-	print("---------------")
+	print(Fore.GREEN +"---------------"+ Style.RESET_ALL)
 	for i in range(len(x)):
-		print(i+1, x[i])
-	print("---------------")
-
-def new_folder(name):
-	pass
-
-def del_folder(name):
-	pass
+		print(i+1, x[i] + Style.RESET_ALL)
+	print(Fore.GREEN +"---------------"+ Style.RESET_ALL)
 
 def rename_folder(name1, name2):
-	pass
-
-def new_file(name):
 	pass
 
 def del_file(name):
