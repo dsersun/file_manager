@@ -6,7 +6,7 @@ import os, colorama
 from colorama import Fore, Back, Style
 colorama.init()
 command = None
-function_code = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "C", "H", "c", "h", "+"]
+function_code = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "C", "H", "c", "h", "O", "o", "F", "f", "+"]
 
 def get_command(): # функция запрашивает у пользователя код желаемой операции
 	global command
@@ -104,9 +104,27 @@ while command != "e":
 # rename file
 		elif command == "6":
 			clear()
-			fm.print_description()
-			print("6")
-			get_command()
+			old = input(Fore.RED + "Insert file name for rename: >>> " + Style.RESET_ALL)
+			new = input("Insert NEW file namefor selected file: >>> ")
+			if os.path.exists(old):
+				if new != "":
+					os.renames(old, new)
+					old = new = None
+					clear()
+					fm.print_description()
+					print(Fore.GREEN + "The file has been renamed!" + Style.RESET_ALL)
+					get_command()
+				else:
+					clear()
+					fm.print_description()
+					print(Fore.RED + "You have not entered a new file name. The selected file will not be renamed" + Style.RESET_ALL)
+					get_command()
+			else:
+				clear()
+				fm.print_description()
+				print("You don't select file for rename. Operation has been intrerupted. Try again.")
+				get_command()
+
 # Copy folder
 		elif command == "7":
 			clear()
@@ -149,6 +167,32 @@ while command != "e":
 			clear()
 			fm.print_description()
 			get_command()
+		elif command == "O" or command == "o":
+			selected = input("Print file name for open this file: >>> ")
+			if os.path.exists(selected):
+				f = open(selected, "r")
+				clear()
+				print(selected + "content:\n")
+				print(f.read())
+				print(Fore.GREEN + "\n Press ENTER for close this file!" + Style.RESET_ALL)
+				input()
+				f.close()
+				clear()
+				fm.print_description()
+				get_command()
+			else:
+				clear()
+				fm.print_description()
+				print(Fore.RED + "The file not exist! Try again!" + Style.RESET_ALL)
+				get_command()
+
+		elif command == "f" or command == "F":
+			name = input("Insert char for fins in file list in dhit directori: >>>")
+			fm.find(name)
+			clear()
+			fm.print_description()
+			get_command()
+
 	else:
 		clear()
 		fm.print_description()

@@ -24,8 +24,9 @@ def print_description():
 	print("|   3. Rename Folder                               7. Copy Folder                       |")
 	print("|                                                  8. Copy File                         |")
 	print("|   4. New File  " + Fore.MAGENTA + "(inactiv)" + Style.RESET_ALL + "                         9. "+ Fore.BLUE +"List of files in directory"+ Style.RESET_ALL +"        |")
-	print("|   5. Delete File                                                                      |")
+	print("|   5. Delete File                                 F. Find                              |")
 	print("|   6. Rename File                                 H. Help   / "+ Fore.RED+"E: Exit"+ Style.RESET_ALL+"                  |")
+	print("|   O. Open File                                                                        |")
 	print("|_______________________________________________________________________________________|\n")
 
 # main function for file manager
@@ -38,14 +39,27 @@ def list_file_and_dir(): # print list of file and folder in Curent Work Dir
 		print(i+1, x[i] + Style.RESET_ALL)
 	print(Fore.GREEN +"---------------"+ Style.RESET_ALL)
 
-def rename_folder(name1, name2):
-	pass
+def find(name):
+	x = os.listdir()
+	items = []
+	for i in range(len(x)):
+		if name in x[i]:
+			items.append(x[i])
 
-def del_file(name):
-	pass
 
-def rename_file(name1, name2):
-	pass
+	if items == []:
+		print("No result!\n Press ENTER button for return in main menu!")
+		input()
+		name = None
+		clear()
+		fm.print_description()
+		get_command()
+	else:
+		for item in items:
+			print(Fore.RED + "/ " + Style.RESET_ALL + item)
+		print(Fore.GREEN + "Press " + Style.RESET_ALL + Fore.RED + "ENTER" + Style.RESET_ALL + Fore.GREEN + "button for return in main menu!" + Style.RESET_ALL)
+		input()
+		name = None
 
 def copy_file(name,init_location, new_location):
 	pass
